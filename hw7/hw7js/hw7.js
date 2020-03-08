@@ -3,11 +3,11 @@ const latvia = { tax: 0.25, middleSalary: 1586, vacancies: 3921 };
 const litva = { tax: 0.15, middleSalary: 1509, vacancies: 1114 };
 //........TASK 1.........
 const getMyTaxes = function(salary){
-    console.log (salary - salary * this.tax);
+    return (salary - salary * this.tax);
 }
-getMyTaxes.call(ukraine, 232);
-getMyTaxes.call(latvia, 232);
-getMyTaxes.call(litva, 232);
+console.log(getMyTaxes.call(ukraine, 232));
+console.log(getMyTaxes.call(latvia, 232));
+console.log(getMyTaxes.call(litva, 232));
 //........TASK 2.........
 function getMiddleTaxes(){
     return (this.middleSalary * this.tax);
