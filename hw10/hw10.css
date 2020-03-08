@@ -1,0 +1,12 @@
+button{
+    margin-top: 3%;
+    font-family: 'Press Start 2P', cursive;
+    color: #fbc235;
+    border-radius: none;
+    background-color: #999999;
+    border: none;
+    
+}
+button:hover{
+    color: red;
+}
