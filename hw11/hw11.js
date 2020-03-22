@@ -9,9 +9,6 @@ function randomSymbol(min) {
   }
   return String.fromCharCode(Number(last5.join('')));
 }
-const error = () => {
-  new Error('Ви зробили фатальну помилку:с');
-};
 const generatePromise = () => {
 	return new Promise(function (resolve) {
 		return setTimeout(() => resolve(randomSymbol(min)), 50);
