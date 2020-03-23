@@ -1,4 +1,4 @@
-let planetPage = 1;
+let page = 1;
 async function getInformationAboutPerson() {
     try {
         let response = await fetch("https://swapi.co/api/films/2/");
@@ -36,24 +36,22 @@ const getPplBtn = () => {
 class Paginator {
     page = 1;
     onChange = null;
-    constructor(page) {
+    constructor(page = 1) {
         this.page = page;
     }
     nextPage() {
-        this.page++;
-        if (this.onChange) {
-            this.pageChanged();
-        }
+        page = this.page++
+        this.pageChanged(page);
     }
     prevPage() {
         if (this.page > 1) {
-            this.page--;
-            this.pageChanged();
+            page = this.page--;
+            this.pageChanged(page);
         }
     }
-    pageChanged() {
+    pageChanged(page) {
         if (this.onChange) {
-            return this.onChange(this.page);
+            return this.onChange(page);
         }
     }
 }
@@ -70,7 +68,7 @@ const btnNext = () =>{
 }
 async function getInformationAboutPlanet() {
     try {
-        let response = await fetch(`https://swapi.co/api/planets/?page=${planetPage}`);
+        let response = await fetch(`https://swapi.co/api/planets/?page=${page}`);
         let data = await response.json();
         return data.results;
     }
@@ -80,21 +78,21 @@ async function getInformationAboutPlanet() {
         }
     }
 }
-console.log(getInformationAboutPlanet());
 const renderPlanet = (planets) => {
     const container = document.querySelector(".slides__planets");
     planets.forEach(planets => {
         const planetsLi = document.createElement("div");
         planetsLi.innerHTML = `
-        <p>${planets.name}<p>
-        <p>${planets.rotation__period}<p>
-        <p>${planets.orbital_diameter}<p>
-        <p>${planets.climate}<p>
-        <p>${planets.gravity}<p>
-        <p>${planets.terrain}<p>
-        <p>${planets.surface_water}<p>
-        <p>${planets.population}<p>
-        <p>${planets.created}<p>`;
+        <p>Name: ${planets.name}<p>
+        <p>Rotation period: ${planets.rotation_period}<p>
+        <p>Orbital period: ${planets.orbital_period}<p>
+        <p>Diameter: ${planets.diameter}<p>
+        <p>Climate: ${planets.climate}<p>
+        <p>Gravity: ${planets.gravity}<p>
+        <p>Terrain: ${planets.terrain}<p>
+        <p>Surface water:  ${planets.surface_water}<p>
+        <p>Population: ${planets.population}<p>`;
         container.append(planetsLi);
     });
 }
+getInformationAboutPlanet().then(renderPlanet)
