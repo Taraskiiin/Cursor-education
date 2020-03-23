@@ -1,23 +1,12 @@
+let planetPage = 1;
 async function getInformationAboutPerson() {
     try {
-        let result = await fetch("https://swapi.co/api/films/2/");
-        let data = await result.json();
+        let response = await fetch("https://swapi.co/api/films/2/");
+        let data = await response.json();
         const requests = data.characters.map(el => {
             return fetch(el).then(res => res.json());
         });
         return Promise.all(requests);
-    }
-    catch {
-        if (!res.ok) {
-            throw new Error('Oopsy!' + personList.status)
-        }
-    }
-}
-async function getInformationAboutPlanet() {
-    try {
-        let result = await fetch("https://swapi.co/api/planets");
-        let data = await result.json();
-        return data.plane;
     }
     catch {
         if (!res.ok) {
@@ -37,13 +26,77 @@ const renderCharacters = (characters) => {
     });
 }
 let isVisible = true;
-const show = () => {
-    getInformationAboutPerson().than(renderCharacters());
-}
 const hide = () => {
     document.querySelector(".people__block").innerHTML = "";
 }
 const getPplBtn = () => {
-    isVisible ? hide() : show();
+    isVisible ? hide() : getInformationAboutPerson().then(renderCharacters);
     isVisible = !isVisible;
+}
+class Paginator {
+    page = 1;
+    onChange = null;
+    constructor(page) {
+        this.page = page;
+    }
+    nextPage() {
+        this.page++;
+        if (this.onChange) {
+            this.pageChanged();
+        }
+    }
+    prevPage() {
+        if (this.page > 1) {
+            this.page--;
+            this.pageChanged();
+        }
+    }
+    pageChanged() {
+        if (this.onChange) {
+            return this.onChange(this.page);
+        }
+    }
+}
+const getNumberPage = new Paginator(planetPage);
+const btnPrev = (planetPage) =>{
+    document.querySelector(".slides__planets").innerHTML = "";
+    getNumberPage.prevPage(planetPage);
+    getNumberPage.pageChanged(planetPage);
+    getInformationAboutPlanet(planetPage).then(renderPlanet);
+}
+const btnNext = () =>{
+    document.querySelector(".slides__planets").innerHTML = "";
+    getNumberPage.nextPage();
+    getNumberPage.pageChanged();
+    getInformationAboutPlanet().then(renderPlanet);
+}
+async function getInformationAboutPlanet() {
+    try {
+        let response = await fetch(`https://swapi.co/api/planets/?page=${planetPage}`);
+        let data = await response.json();
+        return data.results;
+    }
+    catch {
+        if (!res.ok) {
+            throw new Error('Oopsy!' + personList.status)
+        }
+    }
+}
+console.log(getInformationAboutPlanet());
+const renderPlanet = (planets) => {
+    const container = document.querySelector(".slides__planets");
+    planets.forEach(planets => {
+        const planetsLi = document.createElement("div");
+        planetsLi.innerHTML = `
+        <p>${planets.name}<p>
+        <p>${planets.rotation__period}<p>
+        <p>${planets.orbital_diameter}<p>
+        <p>${planets.climate}<p>
+        <p>${planets.gravity}<p>
+        <p>${planets.terrain}<p>
+        <p>${planets.surface_water}<p>
+        <p>${planets.population}<p>
+        <p>${planets.created}<p>`;
+        container.append(planetsLi);
+    });
 }

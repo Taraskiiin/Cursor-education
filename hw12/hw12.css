@@ -2,42 +2,56 @@
     box-sizing: border-box;
 }
 body {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
-    background-image: url(img/daniel-tuttle-eVO1OvG2Qhk-unsplash.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
+    font-size: 24px;
+    color: #1c1c1c;
+    background-color: #a39449;
+    font-family: 'Lato', sans-serif;
 }
 .container{
     display: flex;
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center;
+    margin: 0 auto;
+    width: 1100px;
+    height: 100%;
+    justify-content: space-between;
 }
 .get__people,
-.get__planet{
-    width: 50%;
+.planet__block{
+    width: 40%;
     height: 80%;
     display: flex;
     flex-direction: column;
     justify-content:flex-start;
-    align-items: center;
 }
-.button{
+.button{ 
+    margin-top: 70px;
     width: 400px;
     height: 60px;
+    width: 100%;
+    height: 100%;
+    background: #48ff00;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+.button p{
+    font-size: 24px;
+    
+}
+.people__block div,
+.slides__planets div{
     border: none;
     outline: none;
-    color: #666666;
-    background: #999999;
     position: relative;
     z-index: 0;
+    text-align: center;
     border-radius: 10px;
 }
-.button::before{
+.people__block div::before,
+.slides__planets div::before{
     content: "";
     background: linear-gradient(
         135deg, #fd1d1d, #d62976, #fa7e1e, #feda75, #48ff00, #00ffd5, #4f5bd5, #7a00ff, #962fbf, #ff0000);
@@ -52,13 +66,14 @@ body {
     animation: moving-gradient 8s linear infinite;
     border-radius: 10px;    
 }
-.button::after{
+.people__block div::after,
+.slides__planets div::after{
     z-index: -1;
     content: "";
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #333333;
+    background: #c2f55d;
     left: 0;
     top: 0;
     border-radius: 10px;
@@ -76,4 +91,10 @@ body {
         background-position: 0 0;
         opacity: .5;
     }
+}
+.slides__planets{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    padding: 40px 0;
 }
