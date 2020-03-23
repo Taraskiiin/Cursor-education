@@ -57,18 +57,16 @@ class Paginator {
         }
     }
 }
-const getNumberPage = new Paginator(planetPage);
-const btnPrev = (planetPage) =>{
-    document.querySelector(".slides__planets").innerHTML = "";
-    getNumberPage.prevPage(planetPage);
-    getNumberPage.pageChanged(planetPage);
-    getInformationAboutPlanet(planetPage).then(renderPlanet);
+const getNumberPage = new Paginator();
+getNumberPage.onChange = (page) => {
+  document.querySelector(".slides__planets").innerHTML = "";
+  getInformationAboutPlanet(page).then(renderPlanet);
+}
+const btnPrev = () =>{
+    getNumberPage.prevPage();
 }
 const btnNext = () =>{
-    document.querySelector(".slides__planets").innerHTML = "";
     getNumberPage.nextPage();
-    getNumberPage.pageChanged();
-    getInformationAboutPlanet().then(renderPlanet);
 }
 async function getInformationAboutPlanet() {
     try {
