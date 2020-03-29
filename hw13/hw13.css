@@ -30,6 +30,7 @@ body{
     width: 400px;
     height: 50px;
     border: none;
+    cursor: pointer;
 }
 .return__result{
     width: 400px;
@@ -39,4 +40,28 @@ body{
     margin: 0 auto;
     color: #c9c9c9;
     background-color: #212121;
+}
+.change__fontsize {
+    width: 100%;
+    height: 500px;
+    text-align: center;
+    background-image: url(img/dainis-graveris-NIfeNO2f2ak-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: green;
+    position: relative;
+}
+.change__fontsize .control__btn-block{
+    position: absolute;
+    top: 80%;
+    display: flex;
+}
+.control__btn-block .__btn{
+    width: 150px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+#text{
+    padding-top: 10%;
 }
